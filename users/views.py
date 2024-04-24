@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import get_user_model
-from .forms import RegForm
+from .forms import RegForm, AccountInfoForm
 
 
 User = get_user_model()
@@ -30,3 +30,16 @@ def registration(request):
         form = RegForm()
     return render(request, 'users/registration.html', {'form': form,
                                                        'title': title})
+
+
+def profile(request):
+    if request.method == 'POST':
+        form = AccountInfoForm(request.POST)
+        if form.is_valid():
+            profile = form.save(commit=False)
+            profile.user = request.user
+            profile.save()
+            return redirect('profile')
+    else:
+        form = AccountInfoForm()
+    return render(request, 'users/profile.html', context={'form': form})

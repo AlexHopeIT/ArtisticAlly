@@ -1,9 +1,22 @@
 {% extends 'users/base.html' %}
 <title>Вход</title>
 {% block content %}
-<form method="post">
+<form method="post" action="{% url 'login' %}">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Войти</button>
-</form>
+    <div class="mb-3">
+      <label for="exampleInputLogin" class="form-label">Логин</label>
+      {{ form.username.errors }}
+      <input type="text" class="form-control" id="exampleInputLogin" name="username">
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Пароль</label>
+      {{ form.password.errors }}
+      <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1" name="remember">
+      <label class="form-check-label" for="exampleCheck1">Запомнить меня</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Войти</button>
+  </form>
 {% endblock %}

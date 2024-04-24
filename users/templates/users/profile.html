@@ -1,0 +1,48 @@
+{% extends 'users/base.html' %}
+{% block content %}
+    <p>Профиль {{ request.user.username }}</p>
+    <button type="button" class="btn btn-primary" id="edit-profile-btn">Изменить информацию о себе</button>
+    <div>
+        Имя: {{ request.user.first_name }}
+        <br>
+        Пол: {{ request.user.gender }}
+        <br>
+        Творческие интересы: {{ request.user.interests }}
+    </div>
+    <form id="profile-form" method="post" style="display: none;">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+    
+        <div class="fieldWrapper">
+            {{ form.about_me.label }}
+            {{ form.about_me.errors }}
+            {{ form.about_me }}
+        </div>
+    
+        <div class="fieldWrapper">
+            {{ form.gender.label }}
+            {{ form.gender.errors }}
+            {{ form.gender }}
+        </div>
+    
+        <div class="fieldWrapper">
+            {{ form.interests.label }}
+            {{ form.interests.errors }}
+            {{ form.interests }}
+        </div>
+    
+        <div class="fieldWrapper">
+            {{ form.link_other_social_networks.label }}
+            {{ form.link_other_social_networks.errors }}
+            {{ form.link_other_social_networks }}
+        </div>
+    
+        <p><input type="submit" value="Сохранить изменения"></p>
+    </form>
+    
+    <script>
+        document.getElementById('edit-profile-btn').addEventListener('click', function() {
+            document.getElementById('profile-form').style.display = 'block';
+        });
+    </script>
+{% endblock %}

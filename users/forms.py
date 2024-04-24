@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .models import CustomUser
+from .models import CustomUser, UserProfile
 
 
 class RegForm(forms.ModelForm):
@@ -50,3 +50,21 @@ class RussianLoginForm(AuthenticationForm):
         super().__init__(*args, **kwargs)
         self.fields['username'].label = 'Логин'
         self.fields['password'].label = 'Пароль'
+
+
+class AccountInfoForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['about_me', 'gender', 'interests', 'link_other_social_networks']
+        widgets = {
+            'about_me': forms.Textarea(attrs={'rows': 5}),
+            'gender': forms.Select(choices=UserProfile.gender_choices),
+            'interests': forms.SelectMultiple(choices=UserProfile.interest_choices),
+            'link_other_social_networks': forms.Textarea(attrs={'rows': 3})
+        }
+        labels = {
+            'about_me': 'О себе',
+            'gender': 'Пол',
+            'interests': 'Интересы в творчестве',
+            'link_other_social_networks': 'Ссылки на другие соцсети'
+        }

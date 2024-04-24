@@ -2,7 +2,18 @@
 
 {% block content %}
 <h1>Главная страница</h1>
-<p>Добро пожаловть на *название сайта*! Здесь вы можете поделиться своим творчеством,</p>
+<p>Добро пожаловть на ArtisticAlly! Здесь вы можете поделиться своим творчеством,</p>
     <p>а также посмотреть на таланты других. Возможно, именно здесь вы найдете свою</p>
     <p>первую аудиторию!</p>
+<br>
+<br>
+<br>
+<div class="btn-group" role="group" aria-label="Basic outlined example">
+    <a href="{% url 'registration' %}">
+        <button type="button" class="btn btn-outline-primary" style="margin-right: 10px;">Зарегистрироваться</button>
+    </a>
+    <a href="{% url 'login' %}">
+        <button type="button" class="btn btn-outline-primary">Войти</button>
+    </a>
+ </div>
 {% endblock %}
