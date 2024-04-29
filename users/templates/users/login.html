@@ -1,6 +1,7 @@
 {% extends 'users/base.html' %}
 <title>Вход</title>
 {% block content %}
+<div class="container-md">
 <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
     <div class="mb-3">
@@ -18,5 +19,6 @@
       <label class="form-check-label" for="exampleCheck1">Запомнить меня</label>
     </div>
     <button type="submit" class="btn btn-primary">Войти</button>
-  </form>
+</form>
+</div>
 {% endblock %}

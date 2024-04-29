@@ -5,7 +5,7 @@ from .models import CustomUser, UserProfile
 
 class RegForm(forms.ModelForm):
     password2 = forms.CharField(label='Повторите пароль',
-                                widget=forms.PasswordInput)
+                                widget=forms.PasswordInput(attrs={'class': 'form-control'}))
 
     class Meta:
         model = CustomUser
@@ -16,7 +16,9 @@ class RegForm(forms.ModelForm):
             'password': 'Пароль',
         }
         widgets = {
-            'password': forms.PasswordInput()
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'password': forms.PasswordInput(attrs={'class': 'form-control'})
         }
         error_messages = {
             'username': {
@@ -41,7 +43,7 @@ class RegForm(forms.ModelForm):
         password1 = cleaned_data.get('password1')
         password2 = cleaned_data.get('password2')
 
-        if password1 == password2 and password1 != password2:
+        if password1 != password2:
             raise forms.ValidationError("Пароли не совпадают!")
 
 

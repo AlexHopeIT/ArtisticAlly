@@ -13,6 +13,7 @@ def indexpage(request):
 
 def registration(request):
     title = 'Регистрация'
+    success_message = ''
     if request.method == 'POST':
         form = RegForm(request.POST)
         if form.is_valid():
@@ -22,14 +23,14 @@ def registration(request):
             user = User.objects.create_user(username=username, email=email)
             user.set_password(password)
             user.save()
-            messages.success(request,
-                             'Вы успешно зарегистрировались! '
-                             'Войдите в аккаунт!')
+            success_message = 'Вы успешно зарегистрировались! Войдите в аккаунт!'
+            messages.success(request, success_message)
             return redirect('login')
     else:
         form = RegForm()
     return render(request, 'users/registration.html', {'form': form,
-                                                       'title': title})
+                                                       'title': title,
+                                                       'success_message': success_message})
 
 
 def profile(request):
