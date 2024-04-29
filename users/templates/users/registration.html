@@ -1,8 +1,54 @@
 {% extends 'users/base.html' %}
 {% block content %}
+<div class="container-md">
 <form class="regform" action="" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Зарегистрироваться</button>
+    <div class="mb-3">
+        <label for="{{ form.username.id_for_label }}" class="form-label">Логин:</label>
+        {{ form.username }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ form.email.id_for_label }}" class="form-label">Электронная почта:</label>
+        {{ form.email }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ form.password.id_for_label }}" class="form-label">Пароль:</label>
+        {{ form.password }}
+    </div>
+    <div class="mb-3">
+        <label for="{{ form.password2.id_for_label }}" class="form-label">Повторите пароль:</label>
+        {{ form.password2 }}
+    </div>
+    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
 </form>
-{% endblock %}
+</div>
+
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="liveToast" class="toast hide" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Успех</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">
+        {{ success_message }}
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var toastElList = document.querySelectorAll('.toast');
+    if (toastElList.length > 0) {
+        var toastList = [].slice.call(toastElList).map(function(toastEl) {
+            return new bootstrap.Toast(toastEl);
+        });
+
+        window.addEventListener('load', function() {
+            toastList.forEach(function(toast) {
+                toast.show();
+            });
+        });
+    }
+});
+  </script>
+  {% endblock %}
